@@ -14,4 +14,4 @@ jobs:
 
     steps:
       - name: pull repo
-        run: cd /front/; git pull;
+        run: cd /Back/; git pull;
