@@ -1,0 +1,17 @@
+name: auto repo pull
+
+concurrency: 
+  group: production
+  cancel-in-progress: true
+  
+on:
+  push:
+      branches: [ main ]
+jobs:
+  pull-job:
+    name: update-server
+    runs-on: self-hosted
+
+    steps:
+      - name: pull repo
+        run: cd /front/; git pull;
