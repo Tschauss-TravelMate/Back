@@ -31,8 +31,9 @@ app.listen(PORT, () => {
 
 app.get("/api/get", (req, res) => {
   // get 요청 시
-  const sqlQuery = "SELECT * FROM Planner ORDER BY date;";
+  const sqlSelect = "SELECT * FROM Planner ORDER BY date;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
+    console.log(result);
   });
 });
