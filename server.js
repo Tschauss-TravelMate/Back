@@ -30,9 +30,9 @@ app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
 
-app.get("/api/get", (req, res) => {
-  // get 요청 시
-  const sqlSelect = "SELECT * FROM Planner ORDER BY date;";
+// get 요청 시 응답
+app.get("/api/Home_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM Home;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
@@ -56,5 +56,34 @@ app.post("/api/insert", (req, res) => {
   
     console.log("데이터베이스에 데이터가 삽입되었습니다");
     res.status(200).send("데이터베이스에 데이터가 삽입되었습니다");
+  });
+});
+
+app.get("/api/Planner_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM Planner ORDER BY date;"; // 날짜 순으로 정렬
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/api/City_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM City;";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/api/Post_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM post;";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
+});
+
+app.get("/api/Board_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM Board;";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+    console.log(result);
   });
 });
