@@ -22,7 +22,8 @@ app.use(
 );
 
 // post 요청 시 값을 객체로 바꿔줌
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // 서버 연결 시 발생
 app.listen(PORT, () => {
@@ -34,5 +35,26 @@ app.get("/api/get", (req, res) => {
   const sqlSelect = "SELECT * FROM Planner ORDER BY date;";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
+  });
+});
+
+app.post("/api/insert", (req, res) => {
+  const title = req.body.title;
+  const content = req.body.content;
+  const img = req.body.img;
+
+  const sqlInsert =
+  `INSERT INTO post (title, content, img) VALUES ('${title}', '${content}', '${img}')`;
+
+  console.log(sqlInsert);
+
+  db.query(sqlInsert, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("데이터베이스에 데이터 삽입 중 오류가 발생했습니다");
+    }
+  
+    console.log("데이터베이스에 데이터가 삽입되었습니다");
+    res.status(200).send("데이터베이스에 데이터가 삽입되었습니다");
   });
 });
