@@ -2,6 +2,7 @@ const express = require("express"); // npm i express | yarn add express
 const cors = require("cors"); // npm i cors | yarn add cors
 const mysql = require("mysql"); // npm i mysql | yarn add mysql
 const app = express();
+const path = require("path");
 const PORT = 3001; // 포트번호 설정
 
 // MySQL 연결
@@ -30,6 +31,11 @@ app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
 
+app.use(express.static(path.join(__dirname, "front/dist/")));
+app.get("/", function (req, res) {
+  응답.sendFile(path.join(__dirname, "front/dist/index.html"));
+});
+
 // get 요청 시 응답
 app.get("/api/Home_get", (req, res) => {
   const sqlSelect = "SELECT * FROM Home;";
@@ -43,17 +49,18 @@ app.post("/api/insert", (req, res) => {
   const content = req.body.content;
   const img = req.body.img;
 
-  const sqlInsert =
-  `INSERT INTO post (title, content, img) VALUES ('${title}', '${content}', '${img}')`;
+  const sqlInsert = `INSERT INTO post (title, content, img) VALUES ('${title}', '${content}', '${img}')`;
 
   console.log(sqlInsert);
 
   db.query(sqlInsert, (err, result) => {
     if (err) {
       console.error(err);
-      return res.status(500).send("데이터베이스에 데이터 삽입 중 오류가 발생했습니다");
+      return res
+        .status(500)
+        .send("데이터베이스에 데이터 삽입 중 오류가 발생했습니다");
     }
-  
+
     console.log("데이터베이스에 데이터가 삽입되었습니다");
     res.status(200).send("데이터베이스에 데이터가 삽입되었습니다");
   });
