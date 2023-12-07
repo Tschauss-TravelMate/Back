@@ -94,3 +94,11 @@ app.get("/api/Board_get", (req, res) => {
     console.log(result);
   });
 });
+
+app.get("/api/Companion_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM Companion;";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+    console.log(result);
+  });
+});
