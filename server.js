@@ -102,3 +102,11 @@ app.get("/api/Companion_get", (req, res) => {
     console.log(result);
   });
 });
+
+app.get("/api/User_get", (req, res) => {
+  const sqlSelect = "SELECT * FROM user;";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+    console.log(result);
+  });
+});
